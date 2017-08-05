@@ -33,5 +33,8 @@ public class LargestRectangle {
         LargestRectangle t = new LargestRectangle();
         String res = t.longestPalindrome(tmp);
         System.out.println(res);
+        char a = 'A';
+        a = (char) (a + 32);
+        System.out.println(a);
     }
 }
