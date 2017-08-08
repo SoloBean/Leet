@@ -75,6 +75,37 @@ public class ReserveLinkedList2 {
             return head;
         }
     }
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null || k == 1){
+            return head;
+        }
+        ListNode prehead = new ListNode(0);
+        prehead.next = head;
+        ListNode point = prehead;
+        ListNode cur = head;
+        ListNode next = null;
+        ListNode pre = null;
+        ListNode hong = head;
+        int i = 0;
+        while (hong != null){
+            hong = hong.next;
+            i++;
+            if (i == k){
+                i = 0;
+                pre = hong;
+                for (int j = 0; j < k; j++){
+                    next = cur.next;
+                    cur.next = pre;
+                    pre = cur;
+                    cur = next;
+                }
+                ListNode tmp = point.next;
+                point.next = pre;
+                point = tmp;
+            }
+        }
+        return prehead.next;
+    }
     public static void main(String[] args){
         ListNode a = new ListNode(3);
         ListNode b = new ListNode(5);
