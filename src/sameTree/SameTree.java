@@ -24,4 +24,20 @@ public class SameTree {
         }
         return false;
     }
+    public boolean middle(TreeNode p, TreeNode q){
+        if (p == null && q == null){
+            return true;
+        }
+        else if (p == null || q == null){
+            return false;
+        }
+        if (middle(p.left, q.left)){
+            if (p.val == q.val){
+                if (middle(p.right, q.right)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
