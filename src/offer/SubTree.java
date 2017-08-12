@@ -42,23 +42,6 @@ public class SubTree {
     }
 
     public static void main(String[] args){
-        TreeNode a = new TreeNode(4);
-        TreeNode b = new TreeNode(7);
-        TreeNode c = new TreeNode(2);
-        c.left = a;
-        c.right=b;
-        a = new TreeNode(9);
-        b = new TreeNode(8);
-        b.left = a;
-        b.right = c;
-        a = new TreeNode(8);
-        c = new TreeNode(7);
-        a.left = b;
-        a.right = c;
-        SubTree t = new SubTree();
-        TreeNode tmp = new TreeNode(8);
-        tmp.left = new TreeNode(9);
-        tmp.right = new TreeNode(2);
-        t.HasSubtree(a,tmp);
+        System.out.println(2^1<<2);
     }
 }
