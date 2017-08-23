@@ -3,23 +3,20 @@ package offer;
 import java.util.*;
 
 public class WordBreak {
-    public boolean wordBreak(String s, List<String> wordDict) {
+    public boolean wordBreak(String s, Set<String> dict) {
         boolean[] flag = new boolean[s.length()];
         for (int i = 0; i < s.length(); i++){
-            int j = 0;
-            for (; j < i; j++){
+            if (dict.contains(s.substring(0,i+1))){
+                flag[i] = true;
+                continue;
+            }
+            for (int j = 0; j <= i; j++){
                 if (flag[j]){
                     String cmp = s.substring(j+1, i+1);
-                    if (wordDict.contains(s.substring(j+1, i+1))){
+                    if (dict.contains(cmp)){
                         flag[i] = true;
-                        break;
+                        continue;
                     }
-                }
-            }
-            if (j >= i){
-                String cmp = s.substring(0, i+1);
-                if (wordDict.contains(s.substring(0, i+1))){
-                    flag[i] = true;
                 }
             }
         }
