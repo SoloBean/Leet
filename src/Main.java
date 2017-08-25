@@ -1,56 +1,56 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
+
+
 import java.util.Scanner;
 
-
 public class Main {
+
+    public static int n = 0, m = 0;  //二分图的左边和右边顶点数目
+    /*
+     * 参数map：给定的二分图，map[i][j]等于1表示i到j连通，为0则表示不连通
+     * 参数linked：linked[i] = u表示顶点i与顶点u连接
+     * 参数start：当前start顶点出发，寻找增广路径
+     * 函数功能：如果能够找到已顶点start开始的增广路径返回true，否则返回false
+     */
+    public boolean dfs(int[][] map, boolean[] used, int[] linked, int start) {
+        for(int i = 0;i < m;i++) {
+            if(used[i] == false && map[start][i] == 1) {
+                used[i] = true;
+                if(linked[i] == -1 || dfs(map, used, linked, linked[i])) {
+                    linked[i] = start;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public int getMaxNum(int[][] map) {
+        int count = 0;
+        int[] linked = new int[m];
+        for(int i = 0;i < m;i++)
+            linked[i] = -1;
+        for(int i = 0;i < n;i++) {
+            boolean[] used = new boolean[m];  //初始化m部分顶点均为被访问
+            if(dfs(map, used, linked, i))  //从顶点i出发能够得到一条增广路径
+                count++;
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
+        Main test = new Main();
         Scanner in = new Scanner(System.in);
-        int n;
-        int m;
-        while(in.hasNext()){
-            n = in.nextInt();
-            m = in.nextInt();
-            System.out.println(solveDP(n,m));
+        n = in.nextInt();
+        m = in.nextInt();
+        int[][] map = new int[n][m];
+        int k = in.nextInt();     //二分图中边的数目
+        for(int i = 0;i < k;i++) {
+            int a = in.nextInt();   //n部分中的顶点
+            int b = in.nextInt();   //m部分中顶点
+            map[a][b] = 1;
         }
+        System.out.println(test.getMaxNum(map));
+    }
 
-    }
-    private static int solveDP(int n,int m){
-        int[] dp = new int[m+1]; // 到达 i位置需要的最小步数
-        if(m==n)
-            return 0;
-        Arrays.fill(dp, Integer.MAX_VALUE);
-//        System.out.println(Arrays.toString(dp));
-        dp[n] = 0;
-        for(int i=n;i<=m;i++){
-            if(dp[i] == Integer.MAX_VALUE){ // 该位置不能像前走
-                dp[i] = 0;
-                continue;
-            }
-            ArrayList<Integer> gcd = getList(i);
-            for(int j=0;j<gcd.size();j++){
-                int x = gcd.get(j);
-                if(i+x<=m) // 记录向前走的长度，保留最小的步数
-                    dp[i+x] = Math.min(dp[i+x], dp[i] + 1);
-            }
-        }
-        if(dp[m]==0)
-            return -1;
-        else
-            return dp[m];
-
-    }
-    // 求因数 时间复杂度 sqrt（n） 很强大
-    public static ArrayList<Integer> getList(int k){
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for(int i=2;i*i<=k;i++){
-            if(k%i ==0){
-                if(i!=1&&i!=k)
-                    list.add(i);
-                if((i*i)!=k&&(k/i)!=1&&(k/i)!=k)
-                    list.add(k/i);
-            }
-        }
-        return list;
-    }
 }
