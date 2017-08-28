@@ -98,5 +98,10 @@ public class ConvertTree {
             tmp = tmp.left;
         }
         System.out.print(tmp.val);
+        String str = "abc";
+        char[] arrays = str.toCharArray();
+        StringBuilder sb = new StringBuilder("sss");
+        sb.deleteCharAt(sb.length()-1);
+
     }
 }

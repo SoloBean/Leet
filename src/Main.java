@@ -1,104 +1,41 @@
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main{
+
+    public static void main(String[] args){
         Scanner sc = new Scanner(System.in
 
         );
         while(sc.hasNext()){
             int n = sc.nextInt();
             int m = sc.nextInt();
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            int c = sc.nextInt();
-            int d = sc.nextInt();
-            int x = sc.nextInt();
-            int y = sc.nextInt();
-            int z = sc.nextInt();
-            double second = y*1.0/c;
-            double third = z*1.0/d;
-            double first =  third*a/x + second*b/y;
-            int max = 0;
-            if(third >= second && third >= first){
-                while(m >= d){
-                    max += z;
-                    m -= d;
-                }
-                if(first > second){
-                    while(m >= a && n >= b){
-                        max += x;
-                        m -= a;
-                        n -= b;
-                    }
-                    while(n >= c){
-                        max += y;
-                        n -= c;
-                    }
-                }else{
-                    while(n >= c){
-                        max += y;
-                        n -= c;
-                    }
-                    while(m >= a && n >= b){
-                        max += x;
-                        m -= a;
-                        n -= b;
-                    }
-                }
-            }else if(second > third && second > first){
-                while(n >= c){
-                    max += y;
-                    n -= c;
-                }
-                if(third > first){
-                    while(m >= d){
-                        max += z;
-                        m -= d;
-                    }
-                    while(m >= a && n >= b){
-                        max += x;
-                        m -= a;
-                        n -= b;
-                    }
-                }else{
-                    while(m >= a && n >= b){
-                        max += x;
-                        m -= a;
-                        n -= b;
-                    }
-                    while(m >= d){
-                        max += z;
-                        m -= d;
-                    }
-                }
-            }else{
-                while(m >= a && n >= b){
-                    max += x;
-                    m -= a;
-                    n -= b;
-                }
-                if(third > second){
-                    while(m >= d){
-                        max += z;
-                        m -= d;
-                    }
-                    while(n >= c){
-                        max += y;
-                        n -= c;
-                    }
-                }else{
-                    while(n >= c){
-                        max += y;
-                        n -= c;
-                    }
-                    while(m >= d){
-                        max += z;
-                        m -= d;
-                    }
-                }
+            int[] a = new int[m];
+            for(int i = 0; i < m; i++){
+                a[i] = sc.nextInt();
             }
-            System.out.println(max);
+            int[] re = new int[n];
+            int j = 0;
+            int i = 0;
+            int u = 0;
+            re[0] = a[0];
+            while(i < n){
+//        		System.out.println(i +" " + j);
+                int k = re[j] > 0 ? re[j] : a[u];
+//        		System.out.println(i +" " + j + " " + k);
+                while(k > 0 && i < n){
+                    re[i] = a[u];
+                    i++;
+                    k--;
+                }
+                u++;
+                j++;
+                u %= m;
+            }
+            for(i = 0; i < n; i++){
+                System.out.print(re[i]+" ");
+            }
         }
         sc.close();
     }
+
 }
